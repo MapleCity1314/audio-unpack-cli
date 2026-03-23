@@ -76,6 +76,22 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f202df86484c868dbad7eaa557ef785d5c66295e41b460ef922eca0723b842c"
 
 [[package]]
+name = "audio-unpack-cli"
+version = "0.1.0"
+dependencies = [
+ "aes",
+ "anyhow",
+ "base64",
+ "clap",
+ "ecb",
+ "id3",
+ "metaflac",
+ "rayon",
+ "serde_json",
+ "walkdir",
+]
+
+[[package]]
 name = "base64"
 version = "0.22.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -327,22 +343,6 @@ checksum = "1fa76a2c86f704bdb222d66965fb3d63269ce38518b83cb0575fca855ebb6316"
 dependencies = [
  "adler2",
  "simd-adler32",
-]
-
-[[package]]
-name = "ncmdump-cli"
-version = "0.1.0"
-dependencies = [
- "aes",
- "anyhow",
- "base64",
- "clap",
- "ecb",
- "id3",
- "metaflac",
- "rayon",
- "serde_json",
- "walkdir",
 ]
 
 [[package]]

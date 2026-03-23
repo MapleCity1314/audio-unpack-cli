@@ -32,7 +32,7 @@ const MODIFY_BOX_KEY: [u8; 16] = [
 const BUFFER_SIZE: usize = 0x8000;
 
 #[derive(Parser, Debug)]
-#[command(name = "ncmdump-cli", version, about = "Fast cross-platform NCM batch decoder")]
+#[command(name = "audio-unpack-cli", version, about = "Fast cross-platform audio container decoder")]
 struct Cli {
     input_dir: PathBuf,
     output_dir: PathBuf,
@@ -114,9 +114,9 @@ fn main() -> Result<()> {
         )
     })?;
 
-    let files = collect_ncm_files(&cli.input_dir, cli.recursive)?;
+    let files = collect_input_files(&cli.input_dir, cli.recursive)?;
     if files.is_empty() {
-        println!("No .ncm files found in {}", cli.input_dir.display());
+        println!("No supported input files found in {}", cli.input_dir.display());
         return Ok(());
     }
 
@@ -212,7 +212,7 @@ fn print_summary(
     }
 }
 
-fn collect_ncm_files(input_dir: &Path, recursive: bool) -> Result<Vec<PathBuf>> {
+fn collect_input_files(input_dir: &Path, recursive: bool) -> Result<Vec<PathBuf>> {
     let mut walker = WalkDir::new(input_dir).follow_links(false);
     if !recursive {
         walker = walker.max_depth(1);
@@ -227,12 +227,12 @@ fn collect_ncm_files(input_dir: &Path, recursive: bool) -> Result<Vec<PathBuf>> 
             continue;
         }
         let path = entry.path();
-        let is_ncm = path
+        let is_supported = path
             .extension()
             .and_then(|ext| ext.to_str())
             .map(|ext| ext.eq_ignore_ascii_case("ncm"))
             .unwrap_or(false);
-        if is_ncm {
+        if is_supported {
             files.push(path.to_path_buf());
         }
     }
@@ -296,7 +296,7 @@ impl NcmDecoder {
         let mut flag = [0_u8; 8];
         reader.read_exact(&mut flag)?;
         if flag != FLAG {
-            bail!("not a valid .ncm file");
+            bail!("not a valid supported container file");
         }
 
         discard_bytes(&mut reader, 2)?;
