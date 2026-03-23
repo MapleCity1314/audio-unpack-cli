@@ -2,6 +2,9 @@
 name = "audio-unpack-cli"
 version = "0.1.0"
 edition = "2021"
+description = "Fast cross-platform audio container decoder"
+license = "MIT"
+repository = "https://github.com/MapleCity1314/audio-unpack-cli"
 
 [dependencies]
 aes = "0.8"
