@@ -33,3 +33,4 @@ Example:
 
 - MP3 and FLAC tags are written when metadata is available.
 - Unsupported output formats still decode audio, but tag writing is skipped with a warning.
+- A matching Codex skill is included at `skills/audio-unpack-cli/`.

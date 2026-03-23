@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audio Unpack CLI"
+  short_description: "Build and use the local audio-unpack-cli tool"
+  default_prompt: "Use $audio-unpack-cli to build or run the local audio container decoder."
